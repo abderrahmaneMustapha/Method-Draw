@@ -274,10 +274,23 @@ MD.Editor = function(){
       $('<canvas>', {id: 'export_canvas'}).hide().appendTo('body');
     }
     var c = $('#export_canvas')[0];
-    
+    var bg =  $('#canvasBackground');
+    var bg_color = $(bg).find('rect')[0].getAttribute("fill");
+    var export_transparent_background =  $('#canvas_export_background')[0].checked
     c.width = svgCanvas.contentW;
     c.height = svgCanvas.contentH;
+
+   
     canvg(c, data.svg, {renderCallback: function() {
+
+      if(bg_color !== "none" && !export_transparent_background){
+        var ctx = c.getContext('2d');
+        ctx.globalCompositeOperation='destination-over';
+        ctx.fillStyle = bg_color;
+        ctx.fillRect(0, 0, c.width, c.height);
+      }
+      
+    
       var datauri = c.toDataURL('image/png');  
       if (!datauri) return false;
       var filename = "Method Draw Image";

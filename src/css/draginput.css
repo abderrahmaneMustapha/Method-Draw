@@ -183,8 +183,11 @@
     cursor: pointer;
 }
 
-.draginput.checkbox {
+.draginput.checkbox{
   cursor: pointer;
+  position: relative;
+  top: auto;
+  bottom: 0;
 }
 
 .draginput.active input, .draginput.active input:hover, .draginput.active input:active {  
